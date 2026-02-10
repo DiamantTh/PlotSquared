@@ -255,7 +255,7 @@ public class BukkitReflectionUtils {
 
 
         /**
-         * apply fiend for object
+         * apply field for object
          *
          * @param e applied object
          * @return RefExecutor with getter and setter
