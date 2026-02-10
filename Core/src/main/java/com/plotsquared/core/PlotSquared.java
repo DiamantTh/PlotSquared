@@ -61,7 +61,6 @@ import com.plotsquared.core.util.EventDispatcher;
 import com.plotsquared.core.util.FileUtils;
 import com.plotsquared.core.util.LegacyConverter;
 import com.plotsquared.core.util.MathMan;
-import com.plotsquared.core.util.ReflectionUtils;
 import com.plotsquared.core.util.task.TaskManager;
 import com.plotsquared.core.uuid.UUIDPipeline;
 import com.sk89q.worldedit.WorldEdit;
@@ -206,8 +205,6 @@ public class PlotSquared {
         GlobalFlagContainer.setup();
 
         try {
-            String ver = this.platform.serverNativePackage();
-            new ReflectionUtils(ver.isEmpty() ? null : ver);
             try {
                 URL logurl = PlotSquared.class.getProtectionDomain().getCodeSource().getLocation();
                 this.jarFile = new File(

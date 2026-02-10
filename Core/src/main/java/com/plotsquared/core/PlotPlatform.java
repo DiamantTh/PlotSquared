@@ -132,7 +132,10 @@ public interface PlotPlatform<P> extends LocaleHolder {
      * Gets the native server code package prefix.
      *
      * @return The package prefix
+     * @deprecated This method is Bukkit-specific and should not be in the platform-independent interface.
+     *             It will be removed in a future version.
      */
+    @Deprecated(since = "7.4.0", forRemoval = true)
     @NonNull String serverNativePackage();
 
     /**
