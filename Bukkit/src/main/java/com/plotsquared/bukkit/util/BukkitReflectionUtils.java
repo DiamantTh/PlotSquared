@@ -16,21 +16,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.plotsquared.core.util;
+package com.plotsquared.bukkit.util;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
+ * Bukkit-specific reflection utilities for NMS access.
+ *
  * @author DPOH-VAR
  * @version 1.0
- * @deprecated This class is Bukkit-specific and should not be in Core. 
- *             It will be removed in a future version.
- *             Use {@link com.plotsquared.bukkit.util.BukkitReflectionUtils} instead.
  */
-@Deprecated(since = "7.4.0", forRemoval = true)
-public class ReflectionUtils {
+public class BukkitReflectionUtils {
 
     /**
      * prefix of bukkit classes
@@ -41,7 +39,7 @@ public class ReflectionUtils {
      */
     private static String preClassM = "net.minecraft.server";
 
-    public ReflectionUtils(String version) {
+    public BukkitReflectionUtils(String version) {
         if (version != null) {
             preClassB += '.' + version;
             preClassM += '.' + version;

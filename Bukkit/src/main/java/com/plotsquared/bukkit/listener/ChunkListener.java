@@ -26,10 +26,10 @@ import com.plotsquared.core.plot.Plot;
 import com.plotsquared.core.plot.PlotArea;
 import com.plotsquared.core.plot.world.PlotAreaManager;
 import com.plotsquared.core.plot.world.SinglePlotArea;
-import com.plotsquared.core.util.ReflectionUtils;
-import com.plotsquared.core.util.ReflectionUtils.RefClass;
-import com.plotsquared.core.util.ReflectionUtils.RefField;
-import com.plotsquared.core.util.ReflectionUtils.RefMethod;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils.RefClass;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils.RefField;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils.RefMethod;
 import com.plotsquared.core.util.task.PlotSquaredTask;
 import com.plotsquared.core.util.task.TaskManager;
 import com.plotsquared.core.util.task.TaskTime;
@@ -57,7 +57,7 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Objects;
 
-import static com.plotsquared.core.util.ReflectionUtils.getRefClass;
+import static com.plotsquared.bukkit.util.BukkitReflectionUtils.getRefClass;
 
 @SuppressWarnings("unused")
 public class ChunkListener implements Listener {
@@ -93,7 +93,7 @@ public class ChunkListener implements Listener {
         try {
             RefClass classCraftWorld = getRefClass("{cb}.CraftWorld");
             RefClass classCraftChunk = getRefClass("{cb}.CraftChunk");
-            ReflectionUtils.RefClass classChunkAccess = getRefClass("net.minecraft.world.level.chunk.IChunkAccess");
+            BukkitReflectionUtils.RefClass classChunkAccess = getRefClass("net.minecraft.world.level.chunk.IChunkAccess");
             this.methodSetUnsaved = classChunkAccess.getMethod("a", boolean.class);
             try {
                 this.methodGetHandleChunk = classCraftChunk.getMethod("getHandle");

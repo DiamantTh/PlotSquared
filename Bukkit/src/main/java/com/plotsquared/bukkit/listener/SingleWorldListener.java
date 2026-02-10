@@ -22,7 +22,7 @@ import com.plotsquared.core.PlotSquared;
 import com.plotsquared.core.plot.world.PlotAreaManager;
 import com.plotsquared.core.plot.world.SinglePlotArea;
 import com.plotsquared.core.plot.world.SinglePlotAreaManager;
-import com.plotsquared.core.util.ReflectionUtils;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,7 @@ import org.bukkit.event.world.ChunkLoadEvent;
 
 import java.lang.reflect.Method;
 
-import static com.plotsquared.core.util.ReflectionUtils.getRefClass;
+import static com.plotsquared.bukkit.util.BukkitReflectionUtils.getRefClass;
 
 public class SingleWorldListener implements Listener {
 
@@ -42,8 +42,8 @@ public class SingleWorldListener implements Listener {
     private Object objChunkStatusFull = null;
 
     public SingleWorldListener() throws Exception {
-        ReflectionUtils.RefClass classCraftChunk = getRefClass("{cb}.CraftChunk");
-        ReflectionUtils.RefClass classChunkAccess = getRefClass("net.minecraft.world.level.chunk.IChunkAccess");
+        BukkitReflectionUtils.RefClass classCraftChunk = getRefClass("{cb}.CraftChunk");
+        BukkitReflectionUtils.RefClass classChunkAccess = getRefClass("net.minecraft.world.level.chunk.IChunkAccess");
         this.methodSetUnsaved = classChunkAccess.getMethod("a", boolean.class).getRealMethod();
         try {
             this.methodGetHandleChunk = classCraftChunk.getMethod("getHandle").getRealMethod();
@@ -52,7 +52,7 @@ public class SingleWorldListener implements Listener {
                 String chunkStatus = PlotSquared.platform().serverVersion()[1] < 21
                         ? "net.minecraft.world.level.chunk" + ".ChunkStatus"
                         : "net.minecraft.world.level.chunk.status.ChunkStatus";
-                ReflectionUtils.RefClass classChunkStatus = getRefClass(chunkStatus);
+                BukkitReflectionUtils.RefClass classChunkStatus = getRefClass(chunkStatus);
                 this.objChunkStatusFull = classChunkStatus.getRealClass().getField("n").get(null);
                 this.methodGetHandleChunk = classCraftChunk
                         .getMethod("getHandle", classChunkStatus.getRealClass())

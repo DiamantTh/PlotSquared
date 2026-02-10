@@ -103,7 +103,7 @@ import com.plotsquared.core.util.FileUtils;
 import com.plotsquared.core.util.PlatformWorldManager;
 import com.plotsquared.core.util.PlayerManager;
 import com.plotsquared.core.util.PremiumVerification;
-import com.plotsquared.core.util.ReflectionUtils;
+import com.plotsquared.bukkit.util.BukkitReflectionUtils;
 import com.plotsquared.core.util.SetupUtils;
 import com.plotsquared.core.util.WorldUtil;
 import com.plotsquared.core.util.task.TaskManager;
@@ -165,7 +165,7 @@ import java.util.concurrent.TimeUnit;
 import static com.plotsquared.core.util.PremiumVerification.getDownloadID;
 import static com.plotsquared.core.util.PremiumVerification.getResourceID;
 import static com.plotsquared.core.util.PremiumVerification.getUserID;
-import static com.plotsquared.core.util.ReflectionUtils.getRefClass;
+import static com.plotsquared.bukkit.util.BukkitReflectionUtils.getRefClass;
 
 @SuppressWarnings("unused")
 @Singleton
@@ -272,6 +272,10 @@ public final class BukkitPlatform extends JavaPlugin implements Listener, PlotPl
         // Stuff that needs to be created before the PlotSquared instance
         PlotPlayer.registerConverter(Player.class, BukkitUtil::adapt);
         TaskManager.setPlatformImplementation(new BukkitTaskManager(this, timeConverter));
+        
+        // Initialize Bukkit-specific reflection utilities
+        String ver = serverNativePackage();
+        new BukkitReflectionUtils(ver.isEmpty() ? null : ver);
 
         final PlotSquared plotSquared = new PlotSquared(this, "Bukkit");
 
@@ -593,7 +597,7 @@ public final class BukkitPlatform extends JavaPlugin implements Listener, PlotPl
         if (!this.methodUnloadSetup) {
             this.methodUnloadSetup = true;
             try {
-                ReflectionUtils.RefClass classCraftWorld = getRefClass("{cb}.CraftWorld");
+                BukkitReflectionUtils.RefClass classCraftWorld = getRefClass("{cb}.CraftWorld");
                 this.methodUnloadChunk0 = classCraftWorld.getRealClass().getDeclaredMethod(
                         "unloadChunk0",
                         int.class,
