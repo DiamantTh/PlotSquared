@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version_ref:
-        description: Upstream release tag to build (for example 7.6.0)
+        description: Branch, tag, or commit from this fork to build
         required: true
-        default: 7.6.0
+        default: main
         type: string
 
 permissions:
@@ -19,7 +19,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: IntellectualSites/PlotSquared
           ref: ${{ inputs.version_ref || github.ref }}
 
       - name: Setup Java
