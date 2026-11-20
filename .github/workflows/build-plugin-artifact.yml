@@ -1,0 +1,37 @@
+name: Build plugin JAR
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/actions/wrapper-validation@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Build Bukkit plugin JAR
+        run: ./gradlew clean :plotsquared-bukkit:shadowJar
+
+      - name: Upload plugin JAR
+        uses: actions/upload-artifact@v4
+        with:
+          name: PlotSquared-${{ github.sha }}
+          path: Bukkit/build/libs/PlotSquared-*.jar
+          if-no-files-found: error
+          retention-days: 14
