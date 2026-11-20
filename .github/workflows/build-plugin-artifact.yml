@@ -1,9 +1,6 @@
 name: Build plugin JAR
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       version_ref:

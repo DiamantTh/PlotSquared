@@ -1,5 +1,6 @@
 name: Build PR
-on: [ pull_request ]
+on:
+  workflow_dispatch:
 jobs:
   build_pr:
     runs-on: ubuntu-latest
